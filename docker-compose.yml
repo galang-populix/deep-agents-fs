@@ -1,0 +1,44 @@
+services:
+  local-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.local
+    container_name: deep-agents-local-api
+    env_file:
+      - .env
+    environment:
+      BACKEND_NAME: local
+      API_PORT: 8080
+      MOUNT_DIR: /mnt/local
+    volumes:
+      - ./mnt/local:/mnt/local
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  gcsfuse-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.gcsfuse
+    container_name: deep-agents-gcsfuse-api
+    env_file:
+      - .env
+    environment:
+      BACKEND_NAME: gcsfuse
+      API_PORT: 8081
+      MOUNT_DIR: /mnt/gcsfuse
+      GCSFUSE_MOUNT_FLAGS: "--implicit-dirs --foreground"
+      SA_PATH_JSON: /credentials/service-account.json
+    volumes:
+      - ./mnt/gcsfuse:/mnt/gcsfuse
+      - ${SA_PATH_JSON}:/credentials/service-account.json:ro
+    ports:
+      - "8081:8081"
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    security_opt:
+      - apparmor:unconfined
+    restart: unless-stopped
+

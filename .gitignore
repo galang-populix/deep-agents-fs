@@ -1,6 +1,7 @@
 .docs
 .credentials
 mnt/
+artifacts/
 
 ############# Default Python Gitignore ##############
 

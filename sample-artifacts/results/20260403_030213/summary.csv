@@ -1,0 +1,7 @@
+backend,scenario,samples,status_ok_pct,latency_mean_ms,latency_p95_ms,latency_max_ms
+gcsfuse,list_heavy_ls,25,100.0,230.356,304.717,721.434
+local,list_heavy_ls,25,100.0,6.87,8.889,13.168
+gcsfuse,read_latency,25,100.0,6.801,9.393,9.853
+local,read_latency,25,100.0,4.017,5.969,6.357
+gcsfuse,write_throughput,4,100.0,877.927,1275.503,1338.836
+local,write_throughput,4,100.0,37.019,91.369,101.784
